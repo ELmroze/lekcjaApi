@@ -21,5 +21,9 @@ namespace lekcjaApi.Entities
         {
             (Id,Name, Age, IdShelter) = (id,name, age, idShelter);
         }
+        public Pet( string name, int age, int idShelter)
+        {
+            ( Name, Age, IdShelter) = ( name, age, idShelter);
+        }
     }
 }
