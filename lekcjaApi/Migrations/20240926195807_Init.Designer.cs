@@ -11,7 +11,7 @@ using lekcjaApi.DB;
 namespace lekcjaApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240922064823_Init")]
+    [Migration("20240926195807_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -35,9 +35,6 @@ namespace lekcjaApi.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdShelter")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,6 +47,50 @@ namespace lekcjaApi.Migrations
                     b.HasIndex("ShelterId");
 
                     b.ToTable("Pets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 2,
+                            Name = "kropka",
+                            ShelterId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 5,
+                            Name = "budyń",
+                            ShelterId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 35,
+                            Name = "Robberto",
+                            ShelterId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Age = 50,
+                            Name = "Reksio",
+                            ShelterId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Age = 51,
+                            Name = "Scooby",
+                            ShelterId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Age = 17,
+                            Name = "kudłaty",
+                            ShelterId = 2
+                        });
                 });
 
             modelBuilder.Entity("lekcjaApi.Entities.Shelter", b =>
@@ -71,6 +112,20 @@ namespace lekcjaApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shelters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adress = "Panki,ulica kuchenna 3",
+                            Name = "zooshelter"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Adress = "warszawa,ulica kresa 13",
+                            Name = "kreskówkowe shronisko "
+                        });
                 });
 
             modelBuilder.Entity("lekcjaApi.Entities.Pet", b =>

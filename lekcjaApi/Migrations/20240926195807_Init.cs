@@ -2,6 +2,8 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace lekcjaApi.Migrations
 {
     /// <inheritdoc />
@@ -32,7 +34,6 @@ namespace lekcjaApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    IdShelter = table.Column<int>(type: "int", nullable: false),
                     ShelterId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -44,6 +45,28 @@ namespace lekcjaApi.Migrations
                         principalTable: "Shelters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Shelters",
+                columns: new[] { "Id", "Adress", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Panki,ulica kuchenna 3", "zooshelter" },
+                    { 2, "warszawa,ulica kresa 13", "kreskówkowe shronisko " }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Pets",
+                columns: new[] { "Id", "Age", "Name", "ShelterId" },
+                values: new object[,]
+                {
+                    { 1, 2, "kropka", 1 },
+                    { 2, 5, "budyń", 1 },
+                    { 3, 35, "Robberto", 1 },
+                    { 4, 50, "Reksio", 2 },
+                    { 5, 51, "Scooby", 2 },
+                    { 6, 17, "kudłaty", 2 }
                 });
 
             migrationBuilder.CreateIndex(

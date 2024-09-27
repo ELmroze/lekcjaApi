@@ -11,7 +11,7 @@ namespace lekcjaApi.Entities
         [Required]
         public int Age { get; set; }
         [Required]
-        public int IdShelter { get; set; }
+        public int ShelterId { get; set; }
         [Required]
         public virtual Shelter Shelter { get; set; }
 
@@ -19,11 +19,11 @@ namespace lekcjaApi.Entities
 
         public Pet(int id, string name,int age, int idShelter)
         {
-            (Id,Name, Age, IdShelter) = (id,name, age, idShelter);
+            (Id,Name, Age, ShelterId) = (id,name, age, idShelter);
         }
         public Pet( string name, int age, int idShelter)
         {
-            ( Name, Age, IdShelter) = ( name, age, idShelter);
+            ( Name, Age, ShelterId) = ( name, age, idShelter);
         }
     }
 }
