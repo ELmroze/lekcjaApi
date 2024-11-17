@@ -15,14 +15,15 @@ namespace lekcjaApi.Controllers
         {
             _petRepository = petService;
         }
+
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             var pets = _petRepository.GetAllPosts();
             return Ok(pets);
         }
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var pet= _petRepository.GetPostById(id);
             if (pet == null)
@@ -32,13 +33,13 @@ namespace lekcjaApi.Controllers
             return Ok(pet);
         }
         [HttpPost]
-        public IActionResult Post(Pet pet)
+        public async Task<IActionResult> Post(Pet pet)
         {
             _petRepository.AddNewPost(pet);
             return Ok(pet);
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var pet= _petRepository.GetPostById(id);
             if (pet == null)

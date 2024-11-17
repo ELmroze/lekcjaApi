@@ -1,38 +1,42 @@
-﻿using lekcjaApi.Entities;
+﻿using lekcjaApi.DB;
+using lekcjaApi.Entities;
 using lekcjaApi.Repositories.Interface;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace lekcjaApi.Repositories
 {
     public class PetRepository:IPetRepository
     {
-        private ISet<Pet> _petsSet = new HashSet<Pet>
-        {
-            new Pet(1,"Fafik",5,1),
-            new Pet(2, "Penelopa",1,1),
-            new Pet(3, "Reksio",3,2)
-        };
+        private readonly DataContext _context;
 
-        public IEnumerable<Pet> GetAllPosts()
+        public PetRepository(DataContext context)
         {
-            return _petsSet;
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Pet>> GetAllPosts()
+        {
+            return _context.Pets;
         }
         public Pet GetPostById(int id)
         {
-            return _petsSet.SingleOrDefault(x=>x.Id==id);
+            return _context.Pets.SingleOrDefault(x=>x.Id==id);
         }
         public Pet AddNewPost(Pet pet)
         {
-            pet.Id=_petsSet.Count()+1;
-            _petsSet.Add(pet);
+            _context.Pets.Add(pet);
+            _context.SaveChanges();
             return pet;
         }
         public void UpdatePost(Pet pet)
         {
-            return;
+            _context.Pets.Update(pet);
+            _context.SaveChanges();
         }
         public void DeletePost(Pet pet)
         {
-            _petsSet.Remove(pet);
+            _context.Pets.Remove(pet);
+            _context.SaveChanges();
         }
     }
 }
