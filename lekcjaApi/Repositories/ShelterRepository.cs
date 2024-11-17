@@ -25,7 +25,7 @@ namespace lekcjaApi.Repositories
             _sheltersSet.Add(shelter);
             return shelter;
         }
-        public void UpdatePost(Shelter pet)
+        public void UpdatePost(Shelter shelter)
         {
             throw new NotImplementedException();
         }

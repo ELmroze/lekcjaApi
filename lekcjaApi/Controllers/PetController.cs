@@ -1,6 +1,8 @@
-﻿using lekcjaApi.Entities;
+﻿using lekcjaApi.Dto;
+using lekcjaApi.Entities;
 using lekcjaApi.Repositories;
 using lekcjaApi.Repositories.Interface;
+using lekcjaApi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lekcjaApi.Controllers
@@ -9,23 +11,23 @@ namespace lekcjaApi.Controllers
     [ApiController]
     public class PetController : Controller
     {
-        private readonly IPetRepository _petRepository;
+        private readonly IPetService _petService;
 
-        public PetController(IPetRepository petService)
+        public PetController(IPetService petService)
         {
-            _petRepository = petService;
+            _petService = petService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var pets = _petRepository.GetAllPosts();
+            var pets = _petService.GetAllPosts();
             return Ok(pets);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var pet= _petRepository.GetPostById(id);
+            var pet= _petService.GetPostById(id);
             if (pet == null)
             {
                 return NotFound();
@@ -33,20 +35,21 @@ namespace lekcjaApi.Controllers
             return Ok(pet);
         }
         [HttpPost]
-        public async Task<IActionResult> Post(Pet pet)
+        public async Task<IActionResult> Post(PetDto pet)
         {
-            _petRepository.AddNewPost(pet);
-            return Ok(pet);
+            _petService.AddNewPost(pet);
+            return Created($"api/pet/{pet.Id}",pet);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(PetDto pet)
+        {
+            _petService.UpdatePost(pet);
+            return NoContent();
         }
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var pet= _petRepository.GetPostById(id);
-            if (pet == null)
-            {
-                return NotFound();
-            }
-            _petRepository.DeletePost(pet);
+            _petService.DeletePost(id);
             return NoContent();
         }
 

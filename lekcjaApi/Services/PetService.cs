@@ -18,9 +18,9 @@ namespace lekcjaApi.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<PetDto> GetAllPosts()
+        public async Task<IEnumerable<PetDto>> GetAllPosts()
         {
-            var posts = _petRepository.GetAllPosts();
+            var posts = await _petRepository.GetAllPosts();
             return _mapper.Map<IEnumerable<PetDto>>(posts);
         }
         public PetDto GetPostById(int id)

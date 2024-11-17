@@ -16,7 +16,7 @@ namespace lekcjaApi.Repositories
 
         public async Task<IEnumerable<Pet>> GetAllPosts()
         {
-            return _context.Pets;
+             return _context.Pets;
         }
         public Pet GetPostById(int id)
         {
